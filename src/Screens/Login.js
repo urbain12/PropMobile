@@ -10,7 +10,7 @@ const Login = ({ navigation }) => {
 
         <View style = {styles.container}>
 
-            <Text style = {styles.Texties}>Let's build property management app</Text>
+            <Text style = {styles.Texties}>Let's build property management app...</Text>
 
         </View>
     );
