@@ -43,19 +43,78 @@ const Manager = ({ navigation }) => {
         <View style = {styles.container}>
             
 
-            <Text>Let's build property management app...</Text>
+            <Text style={{marginTop:30,fontSize:24,marginLeft:'10%'}}>Here's how you're doing</Text>
+            <View style={{borderBottomColor:'gray',borderBottomWidth:1,width:"80%",alignSelf:"center",marginTop:20}}>
+                <Text style={{marginBottom:20,fontWeight:"bold"}}>My Properties</Text>
+            </View>
+
+            <View style={{marginTop:20,flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
+                
+                <View style={{zIndex:1,marginRight:'-5%',height:90,width:"23%",backgroundColor:"#3f4d64",borderRadius:'48%',alignItems:"center",justifyContent:"center"}}>
+                    <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>3</Text>
+                    <Text style={{color:"black",fontSize:15,marginBottom:'-52%'}}>Occupied</Text>
+                </View>
+                
+                <View style={{height:90,width:"23%",backgroundColor:"#adb5bd",borderRadius:'48%',alignItems:"center",justifyContent:"center"}}>
+                    <Text style={{color:"#3f4d64",fontSize:40,marginBottom:"22%"}}>1</Text>
+                    <Text style={{color:"gray",fontSize:15,marginBottom:'-52%'}}>Available</Text>
+                </View>
+                <View style={{ marginLeft:"12%",height:90,width:"23%",backgroundColor:"#f4a261",borderRadius:'48%',alignItems:"center",justifyContent:"center"}}>
+                    <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>2</Text>
+                    <Text style={{color:"gray",fontSize:15,marginBottom:'-52%'}}>Booked</Text>
+                </View>
+            </View>
+
+            <View style={{width:"80%",alignSelf:"center",marginTop:'10%'}}>
+                <Text style={{marginBottom:20,fontWeight:"bold",fontSize:18}}>Earnings</Text>
+            </View>
+
+            <View style={{height:"85%",width:"100%",backgroundColor:"#3f4d64",borderTopLeftRadius:20,borderTopRightRadius:20}}>
+                <View style={{flexDirection:"row",marginLeft:'8%'}}>
+                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
+                        <Text style={{color:"white",fontSize:16}}>Personal Balance</Text>
+                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 500,000</Text>
+                    </View>
+                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
+                        <Text style={{color:"white",fontSize:16}}>Earnings in February</Text>
+                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 800,000</Text>
+                    </View>
+                </View>
+                <View style={{flexDirection:"row",marginLeft:'8%'}}>
+                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
+                        <Text style={{color:"white",fontSize:16}}>Avg Rental Price</Text>
+                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 500,000</Text>
+                    </View>
+                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
+                        <Text style={{color:"white",fontSize:16}}>Active Bookings</Text>
+                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 1,600,000</Text>
+                    </View>
+                </View>
+                <View style={{flexDirection:"row",marginLeft:'8%'}}>
+                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
+                        <Text style={{color:"white",fontSize:16}}>Upcoming Bookings</Text>
+                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 800,000</Text>
+                    </View>
+                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
+                        <Text style={{color:"white",fontSize:16}}>Cancelled Bookings</Text>
+                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 500,000</Text>
+                    </View>
+                </View>
+            </View>
+
+            
 
         </View>
         </ScrollView>
 
 
 
-        <View style={{ backgroundColor: "white", height: 90, flexDirection: "row",alignItems:"center",borderTopRightRadius:20,borderTopLeftRadius:20}}>
+        <View style={{ backgroundColor: "white", height: 90, flexDirection: "row",alignItems:"center",borderTopRightRadius:30,borderTopLeftRadius:30}}>
 
 
 
             <TouchableOpacity style={{ marginLeft: "0%",  width: "25%" ,justifyContent:"center",alignItems:"center"}}
-                onPress={}
+                onPress={() => navigation.navigate('Manager')}
             >
 
                 <Entypo name="home" size={30} color="black" />
@@ -66,7 +125,7 @@ const Manager = ({ navigation }) => {
 
 
             <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-                onPress={}
+                onPress={() => navigation.navigate('Manager')}
             >
 
             <Ionicons name="chatbox-ellipses" size={30} color="black" />
@@ -77,7 +136,7 @@ const Manager = ({ navigation }) => {
 
 
             <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-                onPress={}
+                onPress={() => navigation.navigate('Home')}
             >
 
             <FontAwesome5 name="laptop-house" size={30} color="black" />
@@ -89,7 +148,7 @@ const Manager = ({ navigation }) => {
 
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={}>
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={() => navigation.navigate("Settings")}>
 
             <FontAwesome name="user-circle" size={30} color="black" />
 
@@ -110,8 +169,7 @@ const styles = StyleSheet.create({
 
 container:{
     flex:1 ,
-    alignItems: "center",
-    justifyContent: "center"
+    zIndex:1,
 },
 shadow: {
     shadowColor: "#707070",
