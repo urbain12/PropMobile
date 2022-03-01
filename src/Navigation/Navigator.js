@@ -5,6 +5,7 @@ import {
     View
 } from 'react-native';
 import Login from '../Screens/Login';
+import Manager from '../Screens/Manager';
 
 const Stack = createStackNavigator();
 const screenOptionStyle = {
@@ -17,6 +18,7 @@ const HomeStackNavigator = (props) => {
     return (
 
         <Stack.Navigator screenOptions={screenOptionStyle} >
+            <Stack.Screen name="Manager" component={Manager} />
             <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
 
