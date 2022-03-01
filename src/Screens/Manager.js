@@ -5,10 +5,10 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    StatusBar
+    StatusBar,
+    ScrollView
  } from "react-native";
  import { MaterialCommunityIcons,  FontAwesome5 ,FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
-import { ScrollView } from 'react-native-gesture-handler';
 
 const Manager = ({ navigation }) => {
     return (
@@ -17,13 +17,13 @@ const Manager = ({ navigation }) => {
             <View style={{
                     height:90,
                     paddingTop:20,
-                    backgroundColor:'white',
+                    backgroundColor:'#e9ecef',
                     justifyContent:"center",
                     ...styles.shadow
             }}>
                 <View style={{flexDirection:"row"}}>
-                    <View style={{width:"25%",alignItems:"center"}}>
-                    <MaterialCommunityIcons name="bell" size={24} color="black" />
+                    <View style={[styles.shadow,{width:"25%",alignItems:"center"}]}>
+                    <Image style={{height:30,width:30}} source={require('../Images/logo.png')} />
                     </View>
 
                     <View style={{width:"50%",alignItems:"flex-start"}}>
@@ -31,7 +31,7 @@ const Manager = ({ navigation }) => {
                     </View>
 
                     <View style={{width:"25%",alignItems:"center"}}>
-                    <MaterialCommunityIcons name="bell" size={24} color="black" />
+                    <MaterialCommunityIcons name="bell" size={24} color="#05375a" />
                     </View>
 
                 </View>
@@ -109,15 +109,14 @@ const Manager = ({ navigation }) => {
 
 
 
-        <View style={{ backgroundColor: "white", height: 90, flexDirection: "row",alignItems:"center",borderTopRightRadius:30,borderTopLeftRadius:30}}>
+        <View style={{ backgroundColor: "#e9ecef", height: 90, flexDirection: "row",alignItems:"center",borderTopRightRadius:20,borderTopLeftRadius:20}}>
 
 
 
             <TouchableOpacity style={{ marginLeft: "0%",  width: "25%" ,justifyContent:"center",alignItems:"center"}}
-                onPress={() => navigation.navigate('Manager')}
             >
 
-                <Entypo name="home" size={30} color="black" />
+                <Entypo name="home" size={30} color="#05375a" />
 
 
                 <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Home</Text>
@@ -125,10 +124,9 @@ const Manager = ({ navigation }) => {
 
 
             <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-                onPress={() => navigation.navigate('Manager')}
             >
 
-            <Ionicons name="chatbox-ellipses" size={30} color="black" />
+            <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
 
 
                 <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Inbox</Text>
@@ -136,10 +134,10 @@ const Manager = ({ navigation }) => {
 
 
             <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate("MyProperties")}
             >
 
-            <FontAwesome5 name="laptop-house" size={30} color="black" />
+            <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
 
 
                 <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Properties</Text>
@@ -148,12 +146,12 @@ const Manager = ({ navigation }) => {
 
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={() => navigation.navigate("Settings")}>
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} >
 
-            <FontAwesome name="user-circle" size={30} color="black" />
+            <FontAwesome name="user-circle" size={30} color="#05375a" />
 
 
-                <Text style={{ color: "#707070", fontSize: 12, marginLeft: -10, marginTop: 5 }}>Profile</Text>
+                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Profile</Text>
             </TouchableOpacity>
 
 
