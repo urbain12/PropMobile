@@ -18,8 +18,8 @@ const HomeStackNavigator = (props) => {
     return (
 
         <Stack.Navigator screenOptions={screenOptionStyle} >
-            <Stack.Screen name="Manager" component={Manager} />
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Manager" component={Manager} />
         </Stack.Navigator>
 
     );
