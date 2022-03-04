@@ -7,89 +7,61 @@ import {
     TouchableOpacity,
     StatusBar,
     ImageBackground,
-    ScrollView
+    ScrollView,
+    TextInput,
 } from "react-native";
-import { MaterialCommunityIcons, FontAwesome5, FontAwesome, Ionicons, Entypo,AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome5, FontAwesome, Ionicons, Entypo, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { TextInputMask } from 'react-native-masked-text';
 
-const MyProperties = ({ navigation }) => {
+
+const ManagerProfile = ({ navigation }) => {
+
+    const format = (amount) => {
+        return Number(amount)
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+    };
+
     return (
         <>
             <StatusBar backgroundColor="#00bcd4" translucent={false} hidden={false} barStyle="dark-content" />
             <View style={{
-                height: 90,
+                height: 120,
                 paddingTop: 20,
                 backgroundColor: '#e9ecef',
                 justifyContent: "center",
                 ...styles.shadow
             }}>
-                <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row" }}>
                     <View style={{ width: "70%", alignItems: "flex-start", marginLeft: 20 }}>
                         <Text style={{ fontWeight: "bold", fontSize: 20 }}>My Properties</Text>
                     </View>
 
                     <TouchableOpacity style={{ width: "30%", alignItems: "center" }}
-                    onPress={() => navigation.navigate("AllTransactions")}
+                    onPress={() => navigation.navigate("TenantTransaction")}
                     >
                         <FontAwesome name="exchange" size={24} color="#05375a" />
                     </TouchableOpacity>
 
                 </View>
             </View>
-
-            <View style={{
-                height: 35,
-                justifyContent: "center",
-                marginTop: 5
-            }}>
-                <TouchableOpacity style={{ flexDirection: "row", marginRight: 20 }}>
-
-                    <View style={{ width: "90%", alignItems: "flex-end" }}>
-                        <Text style={{ marginTop: 10 }}>Add New</Text>
-                    </View>
-                    <View style={{ width: "10%", alignItems: "flex-end" }}>
-                        <Ionicons name="add-circle" size={30} color="#05375a" />
-                    </View>
-
-                </TouchableOpacity>
-            </View>
-
-            <View style={{
-                height: 40,
-                justifyContent: "center",
-                // marginTop:10
-            }}>
-                <View style={[styles.Tab]}>
-
-                    <TouchableOpacity style={{ zIndex: 2, width: "35%", alignItems: "center", justifyContent: "center", backgroundColor: "#05375a", height: 40, borderRadius: 10, marginRight: -15 }}>
-                        <Text style={{ fontWeight: "bold", fontSize: 20, color: "white" }}>All</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{ zIndex: 1, width: "30%", alignItems: "center", justifyContent: "center", backgroundColor: "#ffe5d9", height: 40, borderTopRightRadius: 10, borderBottomRightRadius: 10, marginLeft: 10 }}>
-                        <Text style={{ fontWeight: "bold", fontSize: 20 }}>Booked</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{ width: "35%", alignItems: "center", justifyContent: "center", backgroundColor: "#ADB5BD", height: 40, borderTopRightRadius: 10, borderBottomRightRadius: 10, marginLeft: -6 }}>
-                        <Text style={{ fontWeight: "bold", fontSize: 20 }}>Occupied</Text>
-                    </TouchableOpacity>
-
-                </View>
-            </View>
-
-
-            <ScrollView>
+            <ScrollView style={{ height: "100%" }}>
 
                 <Text style={styles.Title}>Zoom House</Text>
+                <Text style={[styles.Texties, { color: "#05375a" }]}>Room Number</Text>
                 <Text style={styles.Texties}>Kacyiru-Kigali</Text>
+                <Text style={[styles.Texties, { marginBottom:-10 }]}>25 mar,2019</Text>
                 <View style={styles.container} >
 
-                    <ImageBackground style={{ height: "85%", width: "100%", flexDirection: "row" }} imageStyle={{ borderRadius: 10 }} source={require('../Images/hotel.jpg')} >
-                        <TouchableOpacity style={{ width: "95%", alignItems: "flex-end",marginTop:5 }}>
-                            <AntDesign name="edit" size={30} color="#fff" />
-                        </TouchableOpacity>
+                    <ImageBackground style={{ height: "85%", width: "100%", flexDirection: "row" }} imageStyle={{ borderRadius: 10 }} source={require('../../Images/hotel.jpg')} >
                     </ImageBackground>
-                <Text style={styles.hoteltitle}>3 Rooms Apartment</Text>
-                <Text style={[styles.hoteldesc,{color:"white",fontWeight:"900",fontSize:14}]}>$800</Text>
-                <Text style={styles.hoteldesc}>Full Furnished</Text>
+                    <TouchableOpacity style={{ flexDirection: "row", width: "100%", marginTop: 10, }} 
+                     onPress={() => navigation.navigate("PayRent")}
+                    >
+                        <Text style={[styles.hoteltitle, { width: "40%", marginLeft: 20, fontSize: 20, color: "#f4a261" }]}>Pay Now</Text>
+                        <Text style={[styles.hoteltitle, { width: "60%", marginLeft: 40 }]}>Rwf {JSON.stringify(format(12000000)).substring(1, JSON.stringify(format(12000000)).length - 4)}</Text>
+                    </TouchableOpacity>
 
                 </View>
             </ScrollView>
@@ -101,7 +73,7 @@ const MyProperties = ({ navigation }) => {
 
 
                 <TouchableOpacity style={{ marginLeft: "0%", width: "25%", justifyContent: "center", alignItems: "center" }}
-                    onPress={() => navigation.navigate("Manager")}
+                    onPress={() => navigation.navigate("Tenant")}
                 >
 
                     <Entypo name="home" size={30} color="#05375a" />
@@ -112,6 +84,7 @@ const MyProperties = ({ navigation }) => {
 
 
                 <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
+                    onPress={() => navigation.navigate("TenantChat")}
                 >
 
                     <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
@@ -122,7 +95,7 @@ const MyProperties = ({ navigation }) => {
 
 
                 <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
-
+                    onPress={() => navigation.navigate("TenantProperties")}
                 >
 
                     <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
@@ -134,7 +107,8 @@ const MyProperties = ({ navigation }) => {
 
 
 
-                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }} >
+                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
+                    onPress={() => navigation.navigate("TenantProfile")} >
 
                     <FontAwesome name="user-circle" size={30} color="#05375a" />
 
@@ -149,31 +123,17 @@ const MyProperties = ({ navigation }) => {
 };
 
 
-export default MyProperties;
+export default ManagerProfile;
 
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: "#a98467",
-        height: "250%",
+        backgroundColor: "#05375a",
+        height: 200,
         width: "92%",
         marginHorizontal: 15,
-        marginTop: 10,
-        borderRadius: 10
-    },
-    Title: {
-        fontFamily: "Arial",
-        fontSize: 16,
-        fontWeight: "bold",
-        marginHorizontal: 15,
-        marginTop: 10
-    },
-    Texties: {
-        fontFamily: "Arial",
-        fontSize: 12,
-        fontWeight: "normal",
-        marginHorizontal: 15,
-        color:"grey"
+        marginTop: 25,
+        borderRadius: 20,
 
     },
     hoteltitle: {
@@ -181,15 +141,32 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal: 10,
-        color:"white",
-        marginTop:-20
+        color: "white",
+        marginTop: -20
     },
     hoteldesc: {
         fontFamily: "Arial",
         fontSize: 12,
         fontWeight: "normal",
         marginHorizontal: 10,
-        color:"#ced4da"
+        color: "#ced4da"
+
+    },
+    Title: {
+        fontFamily: "Arial",
+        fontSize: 16,
+        fontWeight: "bold",
+        marginHorizontal: 20,
+        marginTop: 10,
+        color: "#05375a"
+    },
+    Texties: {
+        fontFamily: "Arial",
+        fontSize: 12,
+        fontWeight: "normal",
+        marginHorizontal: 20,
+        color: "grey",
+        marginTop: 1,
 
     },
     shadow: {
@@ -220,6 +197,18 @@ const styles = StyleSheet.create({
         // shadowRadius: 4.65,
 
         // elevation: 8,
+    },
+    textInput: {
+
+        borderRadius: 10,
+        alignSelf: 'center',
+        height: 55,
+        width: "90%",
+        marginTop: 10,
+        textAlign: "left",
+        padding: 10,
+        flex: 1,
+        borderBottomWidth: 1
     }
 
 })

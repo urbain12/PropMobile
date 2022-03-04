@@ -90,7 +90,6 @@ const TenantTransaction = ({ navigation }) => {
 
                         <View style={{ width: "55%", }}>
                             <Text style={styles.Title}>Nov 02,2022</Text>
-                            <Text style={styles.Texties}>Full Furnished</Text>
                             <Text style={[styles.Texties,{marginBottom:10,marginTop:1}]}>Room Number</Text>
                         </View>
 
@@ -109,55 +108,55 @@ const TenantTransaction = ({ navigation }) => {
 
 
 
-            <View style={{ backgroundColor: "#e9ecef", height: 90, flexDirection: "row", alignItems: "center", borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
+            <View style={{ backgroundColor: "#e9ecef", height: 90, flexDirection: "row",alignItems:"center",borderTopRightRadius:20,borderTopLeftRadius:20}}>
 
 
 
-                <TouchableOpacity style={{ marginLeft: "0%", width: "25%", justifyContent: "center", alignItems: "center" }}
-                onPress={() => navigation.navigate("Manager")}
-                >
+            <TouchableOpacity style={{ marginLeft: "0%",  width: "25%" ,justifyContent:"center",alignItems:"center"}}
+            onPress={() => navigation.navigate("Tenant")}
+            >
 
-                    <Entypo name="home" size={30} color="#05375a" />
-
-
-                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Home</Text>
-                </TouchableOpacity>
+                <Entypo name="home" size={30} color="#05375a" />
 
 
-                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
-                >
-
-                    <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
+                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Home</Text>
+            </TouchableOpacity>
 
 
-                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Inbox</Text>
-                </TouchableOpacity>
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
+            onPress={() => navigation.navigate("Chat")}
+            >
+
+            <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
 
 
-                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
+                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Inbox</Text>
+            </TouchableOpacity>
+
+
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
                 onPress={() => navigation.navigate("MyProperties")}
+            >
 
-                >
-
-                    <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
+            <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
 
 
-                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Properties</Text>
-                </TouchableOpacity>
-
+                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Properties</Text>
+            </TouchableOpacity>
 
 
 
-                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }} >
 
-                    <FontAwesome name="user-circle" size={30} color="#05375a" />
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={() => navigation.navigate("ManagerProfile")} >
 
-
-                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Profile</Text>
-                </TouchableOpacity>
+            <FontAwesome name="user-circle" size={30} color="#05375a" />
 
 
-            </View>
+                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Profile</Text>
+            </TouchableOpacity>
+
+
+        </View>
         </>
     );
 };

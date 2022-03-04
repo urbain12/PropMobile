@@ -23,7 +23,7 @@ const Manager = ({ navigation }) => {
             }}>
                 <View style={{flexDirection:"row"}}>
                     <View style={[styles.shadow,{width:"25%",alignItems:"center"}]}>
-                    <Image style={{height:30,width:30}} source={require('../Images/logo.png')} />
+                    <Image style={{height:30,width:30}} source={require('../../Images/logo.png')} />
                     </View>
 
                     <View style={{width:"50%",alignItems:"flex-start"}}>
@@ -69,7 +69,7 @@ const Manager = ({ navigation }) => {
                 <Text style={{marginBottom:20,fontWeight:"bold",fontSize:18}}>Earnings</Text>
             </View>
 
-            <View style={{height:"85%",width:"100%",backgroundColor:"#3f4d64",borderTopLeftRadius:20,borderTopRightRadius:20}}>
+            <View style={{height:"85%",width:"100%",backgroundColor:"#3f4d64",borderTopLeftRadius:20,borderTopRightRadius:20,marginBottom:20,paddingBottom:20}}>
                 <View style={{flexDirection:"row",marginLeft:'8%'}}>
                     <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"start",marginTop:15}}>
                         <Text style={{color:"white",fontSize:16}}>Personal Balance</Text>
@@ -124,6 +124,7 @@ const Manager = ({ navigation }) => {
 
 
             <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
+            onPress={() => navigation.navigate("Chat")}
             >
 
             <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
@@ -146,7 +147,8 @@ const Manager = ({ navigation }) => {
 
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} >
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} 
+            onPress={() => navigation.navigate("ManagerProfile")} >
 
             <FontAwesome name="user-circle" size={30} color="#05375a" />
 
