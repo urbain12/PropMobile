@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     Title: {
-        fontFamily: "Arial",
+         
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal: 20,
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         color: "#05375a"
     },
     Texties: {
-        fontFamily: "Arial",
+         
         fontSize: 12,
         fontWeight: "normal",
         marginHorizontal: 20,

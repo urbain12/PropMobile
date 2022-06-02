@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 
     },
     Title: {
-        fontFamily: "Arial",
+         
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal: 15,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         color: "white"
     },
     Texties: {
-        fontFamily: "Arial",
+         
         fontSize: 12,
         fontWeight: "normal",
         marginHorizontal: 15,

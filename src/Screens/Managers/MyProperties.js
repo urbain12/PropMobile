@@ -163,14 +163,14 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     Title: {
-        fontFamily: "Arial",
+         
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal: 15,
         marginTop: 10
     },
     Texties: {
-        fontFamily: "Arial",
+         
         fontSize: 12,
         fontWeight: "normal",
         marginHorizontal: 15,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
 
     },
     hoteltitle: {
-        fontFamily: "Arial",
+         
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal: 10,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         marginTop:-20
     },
     hoteldesc: {
-        fontFamily: "Arial",
+         
         fontSize: 12,
         fontWeight: "normal",
         marginHorizontal: 10,

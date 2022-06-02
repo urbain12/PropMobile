@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
     forgotpass: {
         color: "#000000",
         fontSize: 14,
-        fontFamily: "Arial",
         marginLeft: 20,
         marginTop: 10
     },
