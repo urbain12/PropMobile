@@ -100,7 +100,7 @@ const Login = ({ navigation }) => {
                     <TouchableOpacity
                         style={styles.signIn}
                     // onPress={() => { loginHandle(data.phone, data.password) }}
-                    onPress={() => navigation.navigate("Tenant")}
+                    onPress={() => navigation.navigate("Manager")}
                     >
                         <View
                             style={{ backgroundColor: "#05375a", width: "100%", height: "100%", alignItems: "center", borderRadius: 10 }}
