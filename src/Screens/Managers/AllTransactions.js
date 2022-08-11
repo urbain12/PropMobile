@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {
     View,
     Text,
@@ -12,9 +12,32 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons, FontAwesome5, FontAwesome, Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
 import { TextInputMask } from 'react-native-masked-text';
+import axios from 'axios';
 
 
 const AllTransactions = ({ navigation }) => {
+
+    const [transactions,setTransactions]=useState([])
+    useEffect(()=>{
+        const options = {
+            headers: {
+           "Content-Type": "application/json",
+           "x-auth": "705d3a96-c5d7-11ea-87d0-0242ac130003",
+           "app-type":"none",
+           "app-version":"v1",
+           "app-device":"Postman",
+           "app-device-os":"Postman",
+           "app-device-id":"0",
+           "format":"json"
+         }
+         };
+          axios.get(`http://war.t3ch.rw:8231/prop_man/api/web/index.php?r=v1/app/get-transaction-by-tenant&tenantId=1`,options)
+            .then(res => {
+              const my_transactions = res.data.data;
+              setTransactions(my_transactions);
+              console.log(res.data.data)
+            })
+    },[])
 
     const format = (amount) => {
         return Number(amount)
@@ -99,25 +122,25 @@ const AllTransactions = ({ navigation }) => {
 
             <ScrollView>
                 <View style={styles.container} >
-                    <View style={{ flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "white", width: "100%", marginHorizontal: 1, marginTop: 5 }}>
+                    {transactions.map(transaction=>{return(
+                        <View style={{ flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "white", width: "100%", marginHorizontal: 1, marginTop: 5 }}>
 
                         <View style={{ width: "55%", }}>
-                            <Text style={styles.Title}>Nov 02,2022</Text>
+                            <Text style={styles.Title}>{transaction.paymentDate}</Text>
                             <Text style={styles.Texties}>Full Furnished</Text>
-                            <Text style={[styles.Texties, { marginBottom: 10, marginTop: 1 }]}>Room Number</Text>
+                            <Text style={[styles.Texties, { marginBottom: 10, marginTop: 1 }]}>{transaction.roomName}</Text>
                         </View>
 
                         <View style={{ width: "45%" }}>
-                            <Text style={styles.Title}>Rwf {JSON.stringify(format(12000000)).substring(1, JSON.stringify(format(12000000)).length - 4)} </Text>
+                            <Text style={styles.Title}>Rwf {transaction.paidAmount} </Text>
                         </View>
 
                     </View>
-
-
-
-
-
+                    )})}
+                    
+                    
                 </View>
+                
             </ScrollView>
 
 
