@@ -10,6 +10,7 @@ import {
     ScrollView,
     TextInput,
 } from "react-native";
+import { AuthContext } from '../../context/Context';
 import { MaterialCommunityIcons, FontAwesome5, FontAwesome, Ionicons, Entypo, AntDesign,MaterialIcons } from "@expo/vector-icons";
 import { TextInputMask } from 'react-native-masked-text';
 
@@ -22,7 +23,7 @@ const ManagerProfile = ({ navigation }) => {
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
     };
-
+    const context = React.useContext(AuthContext)
     return (
         <>
             <StatusBar backgroundColor="#00bcd4" translucent={false} hidden={false} barStyle="dark-content" />
@@ -132,9 +133,9 @@ const ManagerProfile = ({ navigation }) => {
                             <AntDesign name="logout" size={30} color="red" />
                         </View>
 
-                        <View style={{ width: "85%", marginLeft: -15,marginTop: 5}}>
+                        <TouchableOpacity onPress={() => context.signOut()}   style={{ width: "85%", marginLeft: -15,marginTop: 5}}>
                             <Text style={styles.Title}>Logout</Text>
-                        </View>
+                        </TouchableOpacity>
 
                     </View>
                 </TouchableOpacity>
