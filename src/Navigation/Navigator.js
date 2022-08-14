@@ -203,32 +203,45 @@ const HomeStackNavigator = (props) => {
   
     else{
       if(loginState.userToken !== null){
-
-    return (
-       <AuthContext.Provider value={authContext}>
-        <Stack.Navigator screenOptions={screenOptionStyle} >
-            
-            <Stack.Screen name="Manager" component={Manager} />
-
-            {/* MANAGER */}
-
-            <Stack.Screen name="MyProperties" component={MyProperties} />
-            <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="ManagerProfile" component={ManagerProfile} />
-            <Stack.Screen name="AllTransactions" component={AllTransactions} />
-
-            {/* Tenant */}
-            <Stack.Screen name="Tenant" component={Tenant} />
-            <Stack.Screen name="TenantProperties" component={TenantProperties} />
-            <Stack.Screen name="TenantTransaction" component={TenantTransaction} />
-            <Stack.Screen name="TenantChat" component={TenantChat} />
-            <Stack.Screen name="TenantProfile" component={TenantProfile} />
-            <Stack.Screen name="TenantChatroom" component={TenantChatroom} />
-            <Stack.Screen name="PayRent" component={PayRent} />
-        </Stack.Navigator>
-        </AuthContext.Provider>
-
-    );
+        if(loginState.redirect_page==='tenant'){
+            return (
+                <AuthContext.Provider value={authContext}>
+                 <Stack.Navigator screenOptions={screenOptionStyle} >
+                     
+                     {/* Tenant */}
+                     <Stack.Screen name="Tenant" component={Tenant} />
+                     <Stack.Screen name="TenantProperties" component={TenantProperties} />
+                     <Stack.Screen name="TenantTransaction" component={TenantTransaction} />
+                     <Stack.Screen name="TenantChat" component={TenantChat} />
+                     <Stack.Screen name="TenantProfile" component={TenantProfile} />
+                     <Stack.Screen name="TenantChatroom" component={TenantChatroom} />
+                     <Stack.Screen name="PayRent" component={PayRent} />
+                 </Stack.Navigator>
+                 </AuthContext.Provider>
+         
+             );
+        }
+        else{
+            return (
+                <AuthContext.Provider value={authContext}>
+                 <Stack.Navigator screenOptions={screenOptionStyle} >
+                     
+                     <Stack.Screen name="Manager" component={Manager} />
+         
+                     {/* MANAGER */}
+         
+                     <Stack.Screen name="MyProperties" component={MyProperties} />
+                     <Stack.Screen name="Chat" component={Chat} />
+                     <Stack.Screen name="ManagerProfile" component={ManagerProfile} />
+                     <Stack.Screen name="AllTransactions" component={AllTransactions} />
+         
+                     
+                 </Stack.Navigator>
+                 </AuthContext.Provider>
+         
+             );
+        }
+    
       }
       else{
           return(
