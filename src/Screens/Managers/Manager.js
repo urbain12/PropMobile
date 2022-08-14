@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { 
     View,
     Text,
@@ -8,9 +8,14 @@ import {
     StatusBar,
     ScrollView
  } from "react-native";
+ import AsyncStorage from '@react-native-async-storage/async-storage';
  import { MaterialCommunityIcons,  FontAwesome5 ,FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 
 const Manager = ({ navigation }) => {
+    useEffect(async()=>{
+        const email = await AsyncStorage.getItem('token')
+        console.log(email)
+    },[])
     return (
         <>
         <StatusBar backgroundColor="#00bcd4" translucent={false} hidden={false} barStyle="dark-content"/>

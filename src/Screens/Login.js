@@ -10,14 +10,28 @@ import {
     StatusBar
 
 } from "react-native";
+import { AuthContext } from '../context/Context';
 import Icon from '@expo/vector-icons/Entypo';
+import axios from 'axios';
 
 const Login = ({ navigation }) => {
-
+    const { signIn } = React.useContext(AuthContext);
     const [securetext, setsecuretext] = useState(true)
+    const [email, setemail] = useState('')
+    const [password, setpassword] = useState('')
     const [loading, setloading] = useState('')
     const updateSecureTextEntry = () => {
         setsecuretext(!securetext)
+    }
+
+    const loginHandle = (phone, password) => {
+        setloading(true)
+        console.log(phone, password)
+        signIn(phone, password);
+        setTimeout(() => {
+            setloading(false)
+        }, 10000)
+
     }
 
     return (
@@ -52,7 +66,7 @@ const Login = ({ navigation }) => {
                         keyboardType='email-address'
                         style={styles.textInput}
                         autoCapitalize="none"
-                    // onChangeText={(val) => setemail(val)}
+                    onChangeText={(val) => setemail(val)}
                     />
                 </View>
 
@@ -69,7 +83,7 @@ const Login = ({ navigation }) => {
                         secureTextEntry={securetext ? true : false}
                         style={styles.textInput}
                         autoCapitalize="none"
-                    // onChangeText={(val) => setpassword(val)}
+                    onChangeText={(val) => setpassword(val)}
                     />
                     <TouchableOpacity
                         onPress={updateSecureTextEntry}>
@@ -99,8 +113,7 @@ const Login = ({ navigation }) => {
                 <View style={{ marginTop: 30 }}>
                     <TouchableOpacity
                         style={styles.signIn}
-                    // onPress={() => { loginHandle(data.phone, data.password) }}
-                    onPress={() => navigation.navigate("Manager")}
+                    onPress={() => { loginHandle(email, password) }}
                     >
                         <View
                             style={{ backgroundColor: "#05375a", width: "100%", height: "100%", alignItems: "center", borderRadius: 10 }}

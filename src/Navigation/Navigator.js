@@ -4,7 +4,10 @@ import {
     ActivityIndicator,
     View
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Login from '../Screens/Login';
+import { AuthContext } from '../context/Context';
+import axios from 'axios';
 //MANAGER SCREEN
 import Manager from '../Screens/Managers/Manager';
 import MyProperties from '../Screens/Managers/MyProperties';
@@ -29,7 +32,7 @@ const HomeStackNavigator = (props) => {
     const initialState = {
         isLoading:true,
         userName:'',
-        userToken:'',
+        userToken:null,
         redirect_page:'',
         email:'',
         properties:[],
@@ -112,7 +115,7 @@ const HomeStackNavigator = (props) => {
                 ['redirect_page', res.data.data.redirect_page],
                 ['properties', my_properties],
                 ['tenant_info', my_tenant_info],
-            ]
+             ]
                 AsyncStorage.multiSet(items, () => {
                     console.log('asyncstorage set successfully')
                 });
@@ -123,7 +126,7 @@ const HomeStackNavigator = (props) => {
                 redirect_page: res.data.data.redirect_page,
                 properties: res.data.data.properties,
                 tenant_info:res.data.data.tenant
-            })
+                })
                 console.log(res.data.data.names,res.data.data.email_id,res.data.data.redirect_page)
                 
               }
@@ -188,11 +191,24 @@ const HomeStackNavigator = (props) => {
         },2000)
     },[])
 
-    return (
+    if(loginState.isLoading){
+        return(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+                <ActivityIndicator size='large' color='#000'/>
+            </View>
+        )
+    }
+  
+  
+  
+    else{
+      if(loginState.userToken !== null){
 
+    return (
+       <AuthContext.Provider value={authContext}>
         <Stack.Navigator screenOptions={screenOptionStyle} >
+            
             <Stack.Screen name="Manager" component={Manager} />
-            <Stack.Screen name="Login" component={Login} />
 
             {/* MANAGER */}
 
@@ -210,8 +226,20 @@ const HomeStackNavigator = (props) => {
             <Stack.Screen name="TenantChatroom" component={TenantChatroom} />
             <Stack.Screen name="PayRent" component={PayRent} />
         </Stack.Navigator>
+        </AuthContext.Provider>
 
     );
+      }
+      else{
+          return(
+            <AuthContext.Provider value={authContext}>
+            <Stack.Navigator screenOptions={screenOptionStyle} >
+                <Stack.Screen name="Login" component={Login} />
+            </Stack.Navigator>
+            </AuthContext.Provider>
+          )
+      }
+    }
 }
 
 export default HomeStackNavigator;
