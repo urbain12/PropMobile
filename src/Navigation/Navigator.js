@@ -219,8 +219,8 @@ const HomeStackNavigator = (props) => {
                  <Stack.Navigator screenOptions={screenOptionStyle} >
                      
                      {/* Tenant */}
-                     <Stack.Screen name="Tenant" component={Tenant} />
                      <Stack.Screen name="TenantProperties" component={TenantProperties} />
+                     <Stack.Screen name="Tenant" component={Tenant} />
                      <Stack.Screen name="TenantTransaction" component={TenantTransaction} />
                      <Stack.Screen name="TenantChat" component={TenantChat} />
                      <Stack.Screen name="TenantProfile" component={TenantProfile} />

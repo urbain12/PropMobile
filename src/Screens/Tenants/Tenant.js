@@ -100,7 +100,7 @@ const ManagerProfile = ({ navigation }) => {
 
 
 <TouchableOpacity style={{ marginLeft: "0%", width: "25%", justifyContent: "center", alignItems: "center" }}
-    onPress={() => navigation.navigate("Tenant")}
+    onPress={() => navigation.navigate("TenantProperties")}
 >
 
     <Entypo name="home" size={30} color="#05375a" />

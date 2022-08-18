@@ -112,8 +112,8 @@ const TenantTransaction = ({ navigation }) => {
 
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",  width: "25%" ,justifyContent:"center",alignItems:"center"}}
-            onPress={() => navigation.navigate("Tenant")}
+            <TouchableOpacity style={{ marginLeft: "0%", width: "25%", justifyContent: "center", alignItems: "center" }}
+                onPress={() => navigation.navigate("TenantProperties")}
             >
 
                 <Entypo name="home" size={30} color="#05375a" />
@@ -134,20 +134,20 @@ const TenantTransaction = ({ navigation }) => {
             </TouchableOpacity>
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-                onPress={() => navigation.navigate("MyProperties")}
-            >
+            <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
+                    onPress={() => navigation.navigate("TenantTransaction")}
+                >
 
-            <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
-
-
-                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Properties</Text>
-            </TouchableOpacity>
+                <FontAwesome name="exchange" size={24} color="#05375a" />
 
 
+                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Transactions</Text>
+                </TouchableOpacity>
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={() => navigation.navigate("ManagerProfile")} >
+
+
+            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={() => navigation.navigate("TenantProfile")} >
 
             <FontAwesome name="user-circle" size={30} color="#05375a" />
 
