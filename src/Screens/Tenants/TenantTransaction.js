@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     View,
     Text,
@@ -12,9 +12,45 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons, FontAwesome5, FontAwesome, Ionicons, Entypo, AntDesign } from "@expo/vector-icons";
 import { TextInputMask } from 'react-native-masked-text';
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const TenantTransaction = ({ navigation }) => {
+
+    const [TenantTransaction, setTenantTransaction] = useState([])
+    const getDashboardInfo = async () => {
+
+
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+                "x-auth": "705d3a96-c5d7-11ea-87d0-0242ac130003",
+                "app-type": "none",
+                "app-version": "v1",
+                "app-device": "Postman",
+                "app-device-os": "Postman",
+                "app-device-id": "0",
+                "format": "json"
+            }
+        };
+        const tenant_info = await AsyncStorage.getItem('tenant_info')
+        const tenant_object = JSON.parse(tenant_info)
+        const tenant_id = tenant_object.tenantID
+        console.log(tenant_id)
+
+        await axios.get(`http://war.t3ch.rw:8231/prop_man/api/web/index.php?r=v1/app/get-transaction-by-tenant&tenantId=${tenant_id}`, options)
+            .then(res => {
+                if (res.status === 200) {
+                    //   alert(JSON.stringify(res.data.data))
+                    setTenantTransaction(res.data.data)
+
+                }
+            })
+    }
+    useEffect(() => {
+        getDashboardInfo()
+    }, [])
 
     const format = (amount) => {
         return Number(amount)
@@ -45,7 +81,7 @@ const TenantTransaction = ({ navigation }) => {
                 </View>
             </View>
 
-            <View style={{
+            {/* <View style={{
                 height: 35,
                 justifyContent: "center",
                 marginTop: 5
@@ -80,83 +116,94 @@ const TenantTransaction = ({ navigation }) => {
                     </View>
 
                 </TouchableOpacity>
-            </View>
+            </View> */}
 
 
 
             <ScrollView>
-                <View style={styles.container} >
-                    <View style={{ flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "white", width: "100%", marginHorizontal: 1, marginTop: 5 }}>
 
-                        <View style={{ width: "55%", }}>
-                            <Text style={styles.Title}>Nov 02,2022</Text>
-                            <Text style={[styles.Texties,{marginBottom:10,marginTop:1}]}>Room Number</Text>
-                        </View>
+                {JSON.stringify(TenantTransaction) !== 'null' && JSON.stringify(TenantTransaction) !== '[]' ? (
+                    TenantTransaction.map(Trans => {
+                        return (
 
-                        <View style={{ width: "45%" }}>
-                            <Text style={styles.Title}>Rwf {JSON.stringify(format(12000000)).substring(1, JSON.stringify(format(12000000)).length - 4)} </Text>
-                        </View>
+                            <View style={styles.container} >
+                                <View style={{ flexDirection: "row", borderBottomWidth: 1, borderBottomColor: "white", width: "100%", marginHorizontal: 1, marginTop: 5 }}>
 
+                                    <View style={{ width: "55%", }}>
+                                        <Text style={styles.Title}>{Trans.paymentDate}</Text>
+                                        <Text style={[styles.Texties, { marginBottom: 10, marginTop: 1 }]}>{Trans.roomName}</Text>
+                                    </View>
+
+                                    <View style={{ width: "45%" }}>
+                                        <Text style={styles.Title}>Rwf {Trans.paidAmount} </Text>
+                                    </View>
+
+                                </View>
+                            </View>
+                        )
+                    })
+                ) : (
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Text>No Transaction yet...</Text>
                     </View>
-                    
+                )}
 
 
 
 
-                </View>
             </ScrollView>
 
 
 
-            <View style={{ backgroundColor: "#e9ecef", height: 90, flexDirection: "row",alignItems:"center",borderTopRightRadius:20,borderTopLeftRadius:20}}>
+            <View style={{ backgroundColor: "#e9ecef", height: 90, flexDirection: "row", alignItems: "center", borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
 
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",  width: "25%" ,justifyContent:"center",alignItems:"center"}}
-            onPress={() => navigation.navigate("Tenant")}
-            >
+                <TouchableOpacity style={{ marginLeft: "0%", width: "25%", justifyContent: "center", alignItems: "center" }}
+                    onPress={() => navigation.navigate("Tenant")}
+                >
 
-                <Entypo name="home" size={30} color="#05375a" />
-
-
-                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Home</Text>
-            </TouchableOpacity>
+                    <Entypo name="home" size={30} color="#05375a" />
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-            onPress={() => navigation.navigate("TenantChat")}
-            >
-
-            <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
+                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Home</Text>
+                </TouchableOpacity>
 
 
-                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Inbox</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
+                    onPress={() => navigation.navigate("TenantChat")}
+                >
+
+                    <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-                onPress={() => navigation.navigate("MyProperties")}
-            >
-
-            <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
+                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Inbox</Text>
+                </TouchableOpacity>
 
 
-                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Properties</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }}
+                    onPress={() => navigation.navigate("MyProperties")}
+                >
+
+                    <FontAwesome5 name="laptop-house" size={30} color="#05375a" />
+
+
+                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Properties</Text>
+                </TouchableOpacity>
 
 
 
 
-            <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }} onPress={() => navigation.navigate("ManagerProfile")} >
+                <TouchableOpacity style={{ marginLeft: "0%", justifyContent: "center", alignItems: "center", width: "25%" }} onPress={() => navigation.navigate("ManagerProfile")} >
 
-            <FontAwesome name="user-circle" size={30} color="#05375a" />
-
-
-                <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Profile</Text>
-            </TouchableOpacity>
+                    <FontAwesome name="user-circle" size={30} color="#05375a" />
 
 
-        </View>
+                    <Text style={{ color: "#707070", fontSize: 12, marginTop: 5 }}>Profile</Text>
+                </TouchableOpacity>
+
+
+            </View>
         </>
     );
 };
@@ -168,7 +215,6 @@ const styles = StyleSheet.create({
 
     container: {
         backgroundColor: "#a98467",
-        height: "3000%",
         width: "92%",
         marginHorizontal: 15,
         marginTop: 10,
@@ -176,7 +222,7 @@ const styles = StyleSheet.create({
 
     },
     Title: {
-         
+
         fontSize: 16,
         fontWeight: "bold",
         marginHorizontal: 15,
@@ -184,7 +230,7 @@ const styles = StyleSheet.create({
         color: "white"
     },
     Texties: {
-         
+
         fontSize: 12,
         fontWeight: "normal",
         marginHorizontal: 15,

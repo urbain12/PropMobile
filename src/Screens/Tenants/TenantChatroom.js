@@ -74,39 +74,6 @@ const TenantChatroom = (props) => {
 
 
       </ScrollView>
-
-
-      <View style={{ backgroundColor: "#e9ecef", height: 90, flexDirection: "row", alignItems: "center", borderTopRightRadius: 20, borderTopLeftRadius: 20 }}>
-
-         <TouchableOpacity style={{width:"15%",marginLeft:5}}>
-
-          <Icon
-            name="camera"
-            color="black"
-            size={40}
-            
-            />
-            </TouchableOpacity>
-          <TextInput
-            placeholder="Type....."
-            placeholderTextColor="#666666"
-            style={{width:"65%",borderWidth:1,borderColor:"black",height:50,borderRadius:20,marginRight:10}}
-            autoCapitalize="none"
-          // onChangeText={(val) => setpassword(val)}
-          />
-          <TouchableOpacity style={{width:"20%",marginLeft:10}}>
-              <Ionicons
-                name="send"
-                color="black"
-                size={40}
-                
-
-              />
-
-          </TouchableOpacity>
-
-
-      </View>
     </View>
   );
 }
