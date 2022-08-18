@@ -31,6 +31,7 @@ const screenOptionStyle = {
 const HomeStackNavigator = (props) => {
     const initialState = {
         isLoading:true,
+        operator_id:null,
         userName:'',
         userToken:null,
         redirect_page:'',
@@ -50,6 +51,7 @@ const HomeStackNavigator = (props) => {
                     redirect_page:action.redirect_page,
                     properties:action.properties,
                     tenant_info:action.tenant_info,
+                    operator_id:action.operator_id,
                     isLoading:false
                 };
             case 'LOGIN':
@@ -61,6 +63,7 @@ const HomeStackNavigator = (props) => {
                     redirect_page:action.redirect_page,
                     properties:action.properties,
                     tenant_info:action.tenant_info,
+                    operator_id:action.operator_id,
                     isLoading:false
                 };
             case 'LOGOUT':
@@ -72,6 +75,7 @@ const HomeStackNavigator = (props) => {
                     redirect_page:null,
                     properties:null,
                     tenant_info:null,
+                    operator_id:null,
                     isLoading:false
                 };
         }
@@ -113,8 +117,9 @@ const HomeStackNavigator = (props) => {
                 ['userName', res.data.data.names],
                 ['email', res.data.data.email_id],
                 ['redirect_page', res.data.data.redirect_page],
+                ['operator_id', JSON.stringify(res.data.data.operator_id)],
                 ['properties', my_properties],
-                ['tenant_info', my_tenant_info],
+                ['tenant_info', my_tenant_info]
              ]
                 AsyncStorage.multiSet(items, () => {
                     console.log('asyncstorage set successfully')
@@ -125,7 +130,8 @@ const HomeStackNavigator = (props) => {
                 email: res.data.data.email_id,
                 redirect_page: res.data.data.redirect_page,
                 properties: res.data.data.properties,
-                tenant_info:res.data.data.tenant
+                tenant_info:res.data.data.tenant,
+                operator_id:res.data.data.operator_id
                 })
                 console.log(res.data.data.names,res.data.data.email_id,res.data.data.redirect_page)
                 
@@ -142,7 +148,7 @@ const HomeStackNavigator = (props) => {
         signOut:async()=>{
 
             try {
-                await AsyncStorage.multiRemove(["userToken", "userName", "email", "redirect_page","properties","tenant_info"]);
+                await AsyncStorage.multiRemove(["userToken", "userName", "email", "redirect_page","properties","tenant_info","operator_id"]);
             } catch (error) {
                 console.log(error)
             }
@@ -159,16 +165,18 @@ const HomeStackNavigator = (props) => {
             let redirect_page;
             let properties;
             let tenant_info;
+            let operator_id;
             userToken=null;
             userName=null;
             email=null;
             redirect_page=null;
             properties=null;
             tenant_info=null;
+            operator_id=null;
 
             try {
             //  await   AsyncStorage.multiRemove(["userToken", "userName", "email", "redirect_page","properties","tenant_info"]);
-            const data = await AsyncStorage.multiGet(["userToken", "userName", "email", "redirect_page", "properties","tenant_info"]);
+            const data = await AsyncStorage.multiGet(["userToken", "userName", "email", "redirect_page", "properties","tenant_info","operator_id"]);
             const new_data = data.map(entry => entry[1]);
             userToken=new_data[0]
             userName=new_data[1]
@@ -176,13 +184,15 @@ const HomeStackNavigator = (props) => {
             redirect_page=new_data[3]
             properties=JSON.parse(new_data[4])
             tenant_info=JSON.parse(new_data[5])
+            operator_id=new_data[7]
             dispatch({ type:'RETRIEVE_TOKEN',
             token: userToken,
             name: userName,
             email: email,
             redirect_page: redirect_page,
             properties: properties,
-            tenant_info: tenant_info
+            tenant_info: tenant_info,
+            operator_id: operator_id
         })
             } catch (error) {
                 console.log(error)

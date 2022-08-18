@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
 
                 <View style={styles.Logo}>
 
-                    <Image style={styles.LogoImage} source={require('../Images/logo.png')} />
+                    <Image style={styles.LogoImage} source={require('../Images/Propertech_logo.png')} />
 
                 </View>
 
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
     Logo: {
-        backgroundColor: "#fff",
+        backgroundColor: "#05375a",
         borderRadius: 800,
         marginTop: 30,
         height: "32%",
@@ -180,8 +180,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     LogoImage: {
-        width: 100,
-        height: 100,
+        width: 130,
+        height: 130,
         flex: 1,
         resizeMode: "contain"
     },

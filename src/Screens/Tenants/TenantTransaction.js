@@ -124,7 +124,7 @@ const TenantTransaction = ({ navigation }) => {
 
 
             <TouchableOpacity style={{ marginLeft: "0%",justifyContent:"center",alignItems:"center", width: "25%" }}
-            onPress={() => navigation.navigate("Chat")}
+            onPress={() => navigation.navigate("TenantChat")}
             >
 
             <Ionicons name="chatbox-ellipses" size={30} color="#05375a" />

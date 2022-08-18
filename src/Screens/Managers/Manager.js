@@ -1,22 +1,50 @@
-import React,{useEffect} from 'react'
+import React,{useState,useEffect} from 'react'
 import { 
     View,
     Text,
     StyleSheet,
     Image,
     TouchableOpacity,
+    ActivityIndicator,
     StatusBar,
     Dimensions,
     ScrollView
  } from "react-native";
+ import axios from 'axios'
  import AsyncStorage from '@react-native-async-storage/async-storage';
  import { MaterialCommunityIcons,  FontAwesome5 ,FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
  const windowHeight = Dimensions.get('window').height;
  const windowWidth = Dimensions.get('window').width;
 const Manager = ({ navigation }) => {
-    useEffect(async()=>{
-        const email = await AsyncStorage.getItem('token')
-        console.log(email)
+    const [dashboardInfo,setDashboardInfo]=useState({})
+    const getDashboardInfo=async()=>{
+       
+
+        const options = {
+            headers: {
+           "Content-Type": "application/json",
+           "x-auth": "705d3a96-c5d7-11ea-87d0-0242ac130003",
+           "app-type":"none",
+           "app-version":"v1",
+           "app-device":"Postman",
+           "app-device-os":"Postman",
+           "app-device-id":"0",
+           "format":"json"
+         }
+         };
+        const operator_id= await AsyncStorage.getItem('operator_id') 
+
+        await axios.get(`http://war.t3ch.rw:8231/prop_man/api/web/index.php?r=v1/app/get-manager-data&operatorId=${operator_id}`, options)
+        .then(res => {
+          if (res.status === 200) {
+            //   alert(JSON.stringify(res.data.data))
+            setDashboardInfo(res.data.data)
+            
+          }
+        })
+    }
+    useEffect(()=>{
+        getDashboardInfo()
     },[])
     return (
         <>
@@ -30,7 +58,9 @@ const Manager = ({ navigation }) => {
             }}>
                 <View style={{flexDirection:"row"}}>
                     <View style={[styles.shadow,{width:"25%",alignItems:"center"}]}>
-                    <Image style={{height:30,width:30}} source={require('../../Images/logo.png')} />
+                        <View style={{padding:3,borderRadius:18,backgroundColor:'#05375a'}}>
+                    <Image style={{height:30,width:30}} source={require('../../Images/Propertech_logo.png')} />
+                        </View>
                     </View>
 
                     <View style={{width:"50%",alignItems:"flex-start"}}>
@@ -45,74 +75,99 @@ const Manager = ({ navigation }) => {
             </View>
 
 
-        <ScrollView>
-
-        <View style = {styles.container}>
-            
-
-            <Text style={{marginTop:30,fontSize:24,marginLeft:'10%'}}>Here's how you're doing</Text>
-            <View style={{borderBottomColor:'gray',borderBottomWidth:1,width:"80%",alignSelf:"center",marginTop:20}}>
-                <Text style={{marginBottom:20,fontWeight:"bold"}}>My Properties</Text>
+        {JSON.stringify(dashboardInfo)==="{}"?(
+            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+            <ActivityIndicator size='large' color='#000'/>
             </View>
+        ):(
+            <ScrollView>
 
-            <View style={{marginTop:20,flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
+            <View style = {styles.container}>
                 
-                <View style={{zIndex:1,marginRight:'-5%',height:90,width:windowWidth/4.4,backgroundColor:"#3f4d64",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
-                    <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>3</Text>
-                    <Text style={{color:"black",fontSize:15,marginBottom:'-52%'}}>Occupied</Text>
+    
+                <Text style={{marginTop:30,fontSize:24,marginLeft:'10%'}}>Here's how you're doing</Text>
+                <View style={{borderBottomColor:'gray',borderBottomWidth:1,width:"80%",alignSelf:"center",marginTop:20}}>
+                    <Text style={{marginBottom:20,fontWeight:"bold"}}>My Properties</Text>
+                </View>
+    
+                <View style={{marginTop:20,flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginHorizontal:5}}>
+                    
+                    <TouchableOpacity style={{height:90,width:windowWidth/4.4,backgroundColor:"#3f4d64",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
+                        <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>{dashboardInfo.total_commercial}</Text>
+                        <Text style={{color:"gray",fontSize:13,marginBottom:'-52%'}}>Commercials</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{height:90,width:windowWidth/4.4,backgroundColor:"#2a9d8f",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
+                        <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>{dashboardInfo.total_residential}</Text>
+                        <Text style={{color:"gray",fontSize:13,marginBottom:'-52%'}}>Residential</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{height:90,width:windowWidth/4.4,backgroundColor:"#adb5bd",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
+                        <Text style={{color:"#3f4d64",fontSize:40,marginBottom:"22%"}}>{dashboardInfo.total_apartment}</Text>
+                        <Text style={{color:"gray",fontSize:13,marginBottom:'-52%'}}>Apartments</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ height:90,width:windowWidth/4.4,backgroundColor:"#f4a261",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
+                        <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>{dashboardInfo.total_estate}</Text>
+                        <Text style={{color:"gray",fontSize:13,marginBottom:'-52%'}}>Estate</Text>
+                    </TouchableOpacity>
+                </View>
+    
+                <View style={{flexDirection:'row'}}>
+                    <View style={{marginTop:'10%',width:'50%',justifyContent:'center',alignItems:'flex-start',paddingLeft:20}}>
+                        <Text style={{marginBottom:20,fontWeight:"bold",fontSize:18}}>Monthly earnings</Text>
+                    </View>
+                    <View style={{marginTop:'10%',width:'50%',alignItems:'flex-end',paddingRight:20}}>
+                        <Text style={{marginBottom:20,fontWeight:"bold",fontSize:18}}>Paid this month</Text>
+                    </View>
                 </View>
                 
-                <View style={{height:90,width:windowWidth/4.4,backgroundColor:"#adb5bd",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
-                    <Text style={{color:"#3f4d64",fontSize:40,marginBottom:"22%"}}>1</Text>
-                    <Text style={{color:"gray",fontSize:15,marginBottom:'-52%'}}>Available</Text>
-                </View>
-                <View style={{ marginLeft:"12%",height:90,width:windowWidth/4.4,backgroundColor:"#f4a261",alignItems:"center",justifyContent:"center",borderRadius:windowWidth/3}}>
-                    <Text style={{color:"white",fontSize:40,marginBottom:"22%"}}>2</Text>
-                    <Text style={{color:"gray",fontSize:15,marginBottom:'-52%'}}>Booked</Text>
+    
+                <View style={{height:"85%",width:"100%",backgroundColor:"#3f4d64",borderTopLeftRadius:20,borderTopRightRadius:20,marginBottom:20,paddingBottom:20}}>
+                    <View style={{flexDirection:"row",marginLeft:'8%'}}>
+    
+                        <View style={{width:'50%'}}>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Commercials</Text>
+                                <Text style={{color:"#00f5d4",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.monthly_commercial}</Text>
+                            </View>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Residential</Text>
+                                <Text style={{color:"#00f5d4",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.monthly_residential}</Text>
+                            </View>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Apartments</Text>
+                                <Text style={{color:"#00f5d4",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.monthly_apartment}</Text>
+                            </View>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Estate</Text>
+                                <Text style={{color:"#00f5d4",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.monthly_estate}</Text>
+                            </View>
+                        </View>
+    
+                        <View style={{width:'50%'}}>
+                        <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Commercials</Text>
+                                <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.this_month_commercial}</Text>
+                            </View>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Residential</Text>
+                                <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.this_month_residential}</Text>
+                            </View>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Apartments</Text>
+                                <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.this_month_apartment}</Text>
+                            </View>
+                            <View style={{width:"100%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
+                                <Text style={{color:"white",fontSize:16}}>Estate</Text>
+                                <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf {dashboardInfo.this_month_estate}</Text>
+                            </View>
+                        </View>
+    
+    
+    
+                    </View>
                 </View>
             </View>
-
-            <View style={{width:"80%",alignSelf:"center",marginTop:'10%'}}>
-                <Text style={{marginBottom:20,fontWeight:"bold",fontSize:18}}>Earnings</Text>
-            </View>
-
-            <View style={{height:"85%",width:"100%",backgroundColor:"#3f4d64",borderTopLeftRadius:20,borderTopRightRadius:20,marginBottom:20,paddingBottom:20}}>
-                <View style={{flexDirection:"row",marginLeft:'8%'}}>
-                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
-                        <Text style={{color:"white",fontSize:16}}>Personal Balance</Text>
-                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 500,000</Text>
-                    </View>
-                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
-                        <Text style={{color:"white",fontSize:16}}>Earnings in February</Text>
-                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 800,000</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:"row",marginLeft:'8%'}}>
-                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
-                        <Text style={{color:"white",fontSize:16}}>Avg Rental Price</Text>
-                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 500,000</Text>
-                    </View>
-                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
-                        <Text style={{color:"white",fontSize:16}}>Active Bookings</Text>
-                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 1,600,000</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:"row",marginLeft:'8%'}}>
-                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
-                        <Text style={{color:"white",fontSize:16}}>Upcoming Bookings</Text>
-                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 800,000</Text>
-                    </View>
-                    <View style={{width:"50%",height:50,justifyContent:"center",alignItems:"flex-start",marginTop:15}}>
-                        <Text style={{color:"white",fontSize:16}}>Cancelled Bookings</Text>
-                        <Text style={{color:"#f4a261",fontSize:17,marginTop:10,fontWeight:"bold"}}>Rwf 500,000</Text>
-                    </View>
-                </View>
-            </View>
-
-            
-
-        </View>
-        </ScrollView>
+            </ScrollView>
+        )}
 
 
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {
     View,
     Text,
@@ -10,13 +10,22 @@ import {
     ScrollView,
     TextInput,
 } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../../context/Context';
 import { MaterialCommunityIcons, FontAwesome5, FontAwesome, Ionicons, Entypo, AntDesign,MaterialIcons } from "@expo/vector-icons";
 import { TextInputMask } from 'react-native-masked-text';
 
 
 const ManagerProfile = ({ navigation }) => {
-
+    const [profile,setProfile]=useState({})
+    const getInfo=async()=>{
+        const info=await AsyncStorage.getItem('tenant_info')
+        console.log('this is the info:'+info)
+        setProfile(JSON.parse(info))
+    }
+    useEffect(()=>{
+        getInfo()
+    },[])
     const format = (amount) => {
         return Number(amount)
             .toFixed(2)
@@ -42,7 +51,7 @@ const ManagerProfile = ({ navigation }) => {
                     </View>
 
                     <View style={{ width: "60%", alignItems: "flex-start", }}>
-                        <Text style={[styles.Title, { color: "white" }]}>Aimable RUKUNDO</Text>
+                        <Text style={[styles.Title, { color: "white" }]}>{profile.firstName} {profile.lastName}</Text>
                         <Text style={[styles.Texties, { color: "#05375a" }]}>Tenant</Text>
                     </View>
 
